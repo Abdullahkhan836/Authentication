@@ -8,7 +8,7 @@ const username = document.querySelector("#username")
 const card = document.querySelector("#card")
 
 
-
+// User is login or not //
 onAuthStateChanged(auth, (user) => {
   if (user) {
     const uid = user.uid;
@@ -21,7 +21,10 @@ onAuthStateChanged(auth, (user) => {
 const logout = document.querySelector("#Logout-btn");
 logout.addEventListener("click", () => {
   signOut(auth).then(() => {
-    alert("successfully Logout")
+    swal("Logout Successfully!", "Please Login again!", "success");
+    setTimeout(()=>{
+     window.location.href="login.html";
+    },2000)
   }).catch((error) => {
     alert(error)
   });

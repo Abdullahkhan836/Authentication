@@ -11,7 +11,7 @@ const lName = document.querySelector("#validationCustom02");
 const city = document.querySelector("#validationCustom03");
 const userName = document.querySelector("#validationCustomUsername");
 
-
+// Authentication and  sending data to Database 
 form.addEventListener("submit",(event)=>{
     event.preventDefault();
 
@@ -29,7 +29,11 @@ form.addEventListener("submit",(event)=>{
             userName : userName.value,
             uid : auth.currentUser.uid
         });
-        console.log("Document written with ID: ", docRef.id);
+        swal("Registered Successful!", "Please Login!", "success");
+           setTimeout(()=>{
+            window.location.href="login.html";
+           },2000)
+        
       } catch (e) {
         console.error("Error adding document: ", e);
       }
