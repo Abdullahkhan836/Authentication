@@ -13,11 +13,15 @@ form.addEventListener("submit",(event)=>{
     // Signed in 
     const user = userCredential.user;
     console.log(user);
-    window.location ="home.html"
+   
   })
+  swal("login Successful!", "Thanks For Visiting!", "success");
+  setTimeout(()=>{
+   window.location.href="home.html";
+  },2000)
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    alert(`Error ${errorCode}: ${errorMessage}`);
+    console.log(errorMessage);
   });
 })
