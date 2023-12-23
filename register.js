@@ -1,7 +1,8 @@
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js'
 
-import {auth,db} from "./config.js"
+import {auth,db,storage} from "./config.js"
 
 const form = document.querySelector("#form");
 const email = document.querySelector("#exampleInputEmail1");
@@ -10,14 +11,25 @@ const fName = document.querySelector("#validationCustom01");
 const lName = document.querySelector("#validationCustom02");
 const city = document.querySelector("#validationCustom03");
 const userName = document.querySelector("#validationCustomUsername");
+const file = document.querySelector("#file")
+const filebtn = document.querySelector("#btn")
+
+
 
 // Authentication and  sending data to Database 
+
+
 form.addEventListener("submit",(event)=>{
     event.preventDefault();
 
     createUserWithEmailAndPassword(auth, email.value, password.value)
     .then(async (userCredential) => {
-      // Signed up 
+     
+     
+     
+     
+ // Signed up //
+
       const user = userCredential.user;
        console.log(user);
        try {
@@ -31,7 +43,7 @@ form.addEventListener("submit",(event)=>{
         });
         swal("Registered Successful!", "Please Login!", "success");
            setTimeout(()=>{
-            window.location.href="login.html";
+            // window.location.href="login.html";
            },2000)
         
       } catch (e) {
@@ -48,3 +60,20 @@ form.addEventListener("submit",(event)=>{
 
 })
 
+
+// fireBase Storage //
+
+   btn.addEventListener('click', () => {
+  const files = file.files[0];
+  console.log(files);
+  const storageRef = ref(storage, email.value);
+  uploadBytes(storageRef, files).then(() => {
+      getDownloadURL(storageRef).then((url) => {
+          console.log(url);
+      }).catch((err)=>{
+          console.log(err);
+      })
+  }).catch((err)=>{
+      console.log(err);
+  })
+})
